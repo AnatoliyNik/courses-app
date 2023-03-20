@@ -1,0 +1,13 @@
+.Courses {
+    padding:        25px;
+    border:         1px solid teal;
+    display:        flex;
+    flex-direction: column;
+    gap:            25px;
+}
+
+.searchingPanel {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}

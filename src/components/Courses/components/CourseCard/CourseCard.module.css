@@ -1,0 +1,42 @@
+.CourseCard {
+    padding:         25px;
+    border:          1px solid lime;
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}
+
+.info {
+    list-style:     none;
+    display:        flex;
+    flex-direction: column;
+    width:          30%;
+}
+
+.info > li {
+    overflow:      hidden;
+    text-overflow: ellipsis;
+}
+
+.infoName {
+    font-weight:    bold;
+    text-transform: capitalize;
+    margin-right:   10px;
+}
+
+.infoData {
+    white-space: nowrap;
+}
+
+.button {
+    align-self: center;
+    padding:    20px 10px 10px;
+}
+
+.description {
+    width: 60%;
+}
+
+.description h2 {
+    padding-bottom: 30px;
+}
