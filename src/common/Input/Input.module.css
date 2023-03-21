@@ -1,0 +1,9 @@
+.Input {
+    padding: 5px 10px;
+    border:  1px solid orange;
+    outline: none;
+}
+
+.Input:focus {
+    box-shadow:  0 0 7px orange;
+}

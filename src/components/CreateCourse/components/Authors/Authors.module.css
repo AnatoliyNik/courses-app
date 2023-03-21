@@ -1,0 +1,56 @@
+.Authors {
+    padding:    25px;
+    border:     1px solid mediumpurple;
+    display:    flex;
+    flex-wrap:  wrap;
+    row-gap:    40px;
+    column-gap: 10%;
+}
+
+.Authors section {
+    flex: 1 1 40%;
+}
+
+.Authors h5 {
+    text-align: center;
+}
+
+.Authors input {
+    width: 100%;
+}
+
+.addAuthor {
+    text-align:  center;
+    padding-top: 20px;
+}
+
+.duration {
+    font-size:   20px;
+    padding-top: 20px;
+}
+
+.time {
+    font-weight: bold;
+    font-size:   25px;
+}
+
+.authorList {
+    list-style:  none;
+    padding-top: 20px;
+    width:       85%;
+}
+
+.authorsItem {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+    padding-bottom:  10px;
+}
+
+.message {
+    text-align:  center;
+}
+
+.error {
+    color: red;
+}

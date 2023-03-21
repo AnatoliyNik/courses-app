@@ -1,0 +1,14 @@
+.SearchBar {
+    display:         flex;
+    justify-content: space-between;
+    gap:             20px;
+    width:           60%;
+}
+
+.SearchBar > label {
+    flex-grow: 1;
+}
+
+.SearchBar input {
+    width: 100%;
+}

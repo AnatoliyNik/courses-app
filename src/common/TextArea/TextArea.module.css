@@ -1,0 +1,39 @@
+.label {
+    position:  relative;
+    display:   inline-block;
+    max-width: 100%;
+}
+
+.TextArea {
+    padding:    10px;
+    border:     1px solid #d7d709;
+    width:      100%;
+    max-width:  100%;
+    min-width:  200px;
+    height:     100px;
+    min-height: 100px;
+    outline:    none;
+}
+
+.TextArea:focus {
+    box-shadow:  0 0 7px #d7d709;
+}
+
+.refresh {
+    width:            25px;
+    height:           25px;
+    background-color: #00d500;
+    cursor:           pointer;
+    border-radius:    50%;
+    border:           none;
+    position:         absolute;
+    bottom:           20px;
+    right:            20px;
+}
+
+.refresh > svg {
+    fill:      white;
+    width:     15px;
+    height:    15px;
+    transform: rotateZ(-90deg) rotateX(180deg);
+}

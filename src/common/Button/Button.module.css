@@ -1,0 +1,17 @@
+.Button {
+    border:           1px solid mediumpurple;
+    padding:          5px 20px;
+    background-color: transparent;
+    cursor:           pointer;
+    white-space:      nowrap;
+    box-shadow:       2px 3px 5px rgba(0, 0, 0, 0.5);
+    transition:       all .2s;
+}
+
+.Button:active:not(:disabled) {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+}
+
+.Button:disabled {
+    cursor: not-allowed;
+}

@@ -1,0 +1,19 @@
+.Header {
+    padding:         25px;
+    margin-bottom:   30px;
+    border:          1px solid orangered;
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}
+
+.auth {
+    display:    flex;
+    list-style: none;
+    gap:        20px;
+}
+
+.name {
+    text-transform: capitalize;
+    font-weight:    bold;
+}
