@@ -45,8 +45,9 @@ const Authors = () => {
 	const changeDuration = (e) => {
 		const target = e.target;
 		const value = e.nativeEvent.data;
+		const regexp = /\D/;
 
-		if (value < '0' || value > '9') {
+		if (regexp.test(value) && value !== null) {
 			target.value = duration || '';
 			return;
 		}
@@ -61,17 +62,15 @@ const Authors = () => {
 			return;
 		}
 
-		if (+target.value === 0) {
-			if (!showDurationError) {
-				setShowDurationError(true);
-			}
-		} else {
-			if (showDurationError) {
-				setShowDurationError(false);
-			}
+		if (Number(target.value) === 0 && !showDurationError) {
+			setShowDurationError(true);
 		}
 
-		setDuration(+target.value);
+		if (Number(target.value) !== 0 && showDurationError) {
+			setShowDurationError(false);
+		}
+
+		setDuration(Number(target.value));
 	};
 
 	const changeAuthorName = (e) => {
@@ -101,31 +100,23 @@ const Authors = () => {
 			id: uuidv4(),
 		};
 
-		authors.push(newAuthor);
-		authorList.push(newAuthor);
-
-		setAuthors([...authors]);
-		setAuthorList([...authorList]);
+		setAuthors([...authors, newAuthor]);
+		setAuthorList([...authorList, newAuthor]);
 
 		authorInput.current.value = '';
 		setIsPristine(true);
 	};
 
 	const addAuthor = (author) => {
-		courseAuthors.push(author);
-		setCourseAuthors([...courseAuthors]);
+		setCourseAuthors([...courseAuthors, author]);
 
-		const filtered = authorList.filter((a) => a !== author);
-		setAuthorList(filtered);
+		setAuthorList(authorList.filter((a) => a !== author));
 	};
 
 	const deleteAuthor = (author) => {
-		authorList.push(author);
-		setAuthorList([...authorList]);
+		setAuthorList([...authorList, author]);
 
-		const filtered = courseAuthors.filter((a) => a !== author);
-
-		setCourseAuthors(filtered);
+		setCourseAuthors(courseAuthors.filter((a) => a !== author));
 	};
 
 	return (

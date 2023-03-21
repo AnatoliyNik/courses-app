@@ -54,8 +54,7 @@ const CreateCourse = () => {
 			authors: courseAuthors.map((a) => a.id),
 		};
 
-		courses.push(course);
-		setCourses([...courses]);
+		setCourses([...courses, course]);
 
 		setIsShowCreateCourse(false);
 	};
@@ -65,21 +64,19 @@ const CreateCourse = () => {
 	};
 
 	const changeDescription = (e) => {
-		const value = e.target.value;
+		const value = e.target.value.trim();
 		const minLength = 2;
 
 		if (pristine) {
 			setPristine(false);
 		}
 
-		if (value.length < minLength) {
-			if (!isShowError) {
-				setIsShowError(true);
-			}
-		} else {
-			if (isShowError) {
-				setIsShowError(false);
-			}
+		if (value.length < minLength && !isShowError) {
+			setIsShowError(true);
+		}
+
+		if (value.length >= minLength && isShowError) {
+			setIsShowError(false);
 		}
 
 		setDescription(value);

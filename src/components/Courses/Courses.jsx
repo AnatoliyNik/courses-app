@@ -22,28 +22,17 @@ const Courses = () => {
 	const { isShowCreateCourse, setIsShowCreateCourse, courses, authors } =
 		useContext(AuthorContext);
 
-	const [courseList, setCourseList] = useState([...courses]);
+	const [courseList, setCourseList] = useState([]);
 
 	const [query, setQuery] = useState('');
 
 	useEffect(() => {
-		search();
-		// eslint-disable-next-line
-    }, [courses]);
+		setCourseList([...courses]);
+	}, [courses]);
 
 	if (isShowCreateCourse) {
 		return <CreateCourse />;
 	}
-
-	const change = (e) => {
-		const query = e.target.value;
-
-		setQuery(query);
-
-		if (query === '') {
-			setCourseList(courses);
-		}
-	};
 
 	const search = () => {
 		if (query === '') {
@@ -59,6 +48,16 @@ const Courses = () => {
 		);
 
 		setCourseList(filtered);
+	};
+
+	const change = (e) => {
+		const query = e.target.value;
+
+		setQuery(query);
+
+		if (query === '') {
+			setCourseList(courses);
+		}
 	};
 
 	const showCreateNewCourse = () => {
