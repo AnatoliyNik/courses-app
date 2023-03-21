@@ -7,6 +7,7 @@ import {
 	ADD_AUTHOR_TITLE_TEXT,
 	AUTHOR_NAME_ERROR_MESSAGE,
 	AUTHOR_NAME_LABEL_TEXT,
+	AUTHOR_NAME_MIN_LENGTH,
 	AUTHORS_TITLE_TEXT,
 	COURSE_AUTHORS_TITLE_TEXT,
 	CREATE_AUTHOR_BUTTON_TEXT,
@@ -73,7 +74,6 @@ const Authors = () => {
 	};
 
 	const changeAuthorName = (e) => {
-		const minLength = 2;
 		let value = e.target.value.trim();
 
 		setAuthorName(value);
@@ -82,7 +82,7 @@ const Authors = () => {
 			setIsPristine(false);
 		}
 
-		if (value.length < minLength) {
+		if (value.length < AUTHOR_NAME_MIN_LENGTH) {
 			setShowAuthorError(true);
 		} else if (showAuthorError) {
 			setShowAuthorError(false);
@@ -90,7 +90,7 @@ const Authors = () => {
 	};
 
 	const createAuthor = () => {
-		if (authorName.length < 2) {
+		if (authorName.length < AUTHOR_NAME_MIN_LENGTH) {
 			return;
 		}
 

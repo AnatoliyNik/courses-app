@@ -1,6 +1,10 @@
 import classes from './TextArea.module.css';
+
 import { useRef } from 'react';
+
 import RefreshIcon from '../assets/RefreshIcon';
+
+import PropTypes from 'prop-types';
 
 const TextArea = (props) => {
 	const ref = useRef();
@@ -41,6 +45,13 @@ const TextArea = (props) => {
 			</button>
 		</label>
 	);
+};
+
+TextArea.propTypes = {
+	labelText: PropTypes.string,
+	placeholderText: PropTypes.string,
+	onChange: PropTypes.func,
+	onRefresh: PropTypes.func,
 };
 
 export default TextArea;

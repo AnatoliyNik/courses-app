@@ -1,0 +1,23 @@
+.Loader {
+    position:         absolute;
+    inset:            0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display:          flex;
+    justify-content:  center;
+    align-items:      center;
+}
+
+.spinner {
+    height:        min(50%, 100px);
+    aspect-ratio:  1 / 1;
+    border-radius: 50%;
+    border:        5px solid #6baefc;
+    border-top:    5px dotted transparent;
+    animation:     spin 1s infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
