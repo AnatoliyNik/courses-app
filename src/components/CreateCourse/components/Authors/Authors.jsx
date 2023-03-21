@@ -38,7 +38,6 @@ const Authors = () => {
 	const [isPristine, setIsPristine] = useState(true);
 	const [showAuthorError, setShowAuthorError] = useState(false);
 	const [showDurationError, setShowDurationError] = useState(false);
-	const [authorList, setAuthorList] = useState([...authors]);
 
 	const authorInput = useRef();
 
@@ -101,7 +100,6 @@ const Authors = () => {
 		};
 
 		setAuthors([...authors, newAuthor]);
-		setAuthorList([...authorList, newAuthor]);
 
 		authorInput.current.value = '';
 		setIsPristine(true);
@@ -109,13 +107,9 @@ const Authors = () => {
 
 	const addAuthor = (author) => {
 		setCourseAuthors([...courseAuthors, author]);
-
-		setAuthorList(authorList.filter((a) => a !== author));
 	};
 
 	const deleteAuthor = (author) => {
-		setAuthorList([...authorList, author]);
-
 		setCourseAuthors(courseAuthors.filter((a) => a !== author));
 	};
 
@@ -144,8 +138,9 @@ const Authors = () => {
 			<section>
 				<h5>{AUTHORS_TITLE_TEXT}</h5>
 				<ul className={classes.authorList}>
-					{authorList.length ? (
-						authorList.map((author) => (
+					{authors
+						.filter((a) => !courseAuthors.includes(a))
+						.map((author) => (
 							<li key={author.id} className={classes.authorsItem}>
 								<span>{author.name}</span>
 								<Button
@@ -153,8 +148,9 @@ const Authors = () => {
 									buttonText={ADD_AUTHOR_BUTTON_TEXT}
 								/>
 							</li>
-						))
-					) : (
+						))}
+
+					{courseAuthors.length === authors.length && (
 						<p className={classes.message}>{EMPTY_AUTHORS_lIST_MESSAGE}</p>
 					)}
 				</ul>
