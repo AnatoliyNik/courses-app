@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -33,7 +33,7 @@ const Courses = () => {
 		setCourseList([...courses]);
 	}, [courses]);
 
-	const search = () => {
+	const search = useCallback(() => {
 		if (query === '') {
 			setCourseList(courses);
 			return;
@@ -47,7 +47,7 @@ const Courses = () => {
 					el.title.toLowerCase().includes(q) || el.id.toLowerCase().includes(q)
 			)
 		);
-	};
+	}, [courses, query]);
 
 	const change = (e) => {
 		const query = e.target.value;
