@@ -1,5 +1,9 @@
 export function getAuthors(arrayId, listOfAuthors) {
-	return arrayId.map((id) => getAuthorById(id, listOfAuthors)).join(', ');
+	return getArrayOfAuthors(arrayId, listOfAuthors).join(', ');
+}
+
+export function getArrayOfAuthors(arrayId, listOfAuthors) {
+	return arrayId?.map((id) => getAuthorById(id, listOfAuthors));
 }
 
 function getAuthorById(id, listOfAuthors) {

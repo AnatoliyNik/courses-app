@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import SearchBar from './components/SearchBar/SearchBar';
 import Button from '../../common/Button/Button';
-import CreateCourse from '../CreateCourse/CreateCourse';
 
 import classes from './Courses.module.css';
 
 import {
 	ADD_NEW_COURSE_BUTTON_TEXT,
+	CREATE_COURSE_ROUTE,
 	NO_COURSE_FOUND_MESSAGE,
 } from '../../constants';
 
@@ -18,23 +18,22 @@ import { dateGeneratop } from '../../helpers/dateGeneratop';
 
 import { AuthorContext } from '../../GlobalContext/GlobalContext';
 
+import { useNavigate } from 'react-router-dom';
+
 const Courses = () => {
-	const { isShowCreateCourse, setIsShowCreateCourse, courses, authors } =
-		useContext(AuthorContext);
+	const { courses, authors } = useContext(AuthorContext);
 
 	const [courseList, setCourseList] = useState([]);
 
 	const [query, setQuery] = useState('');
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		setCourseList([...courses]);
 	}, [courses]);
 
-	if (isShowCreateCourse) {
-		return <CreateCourse />;
-	}
-
-	const search = () => {
+	const search = useCallback(() => {
 		if (query === '') {
 			setCourseList(courses);
 			return;
@@ -42,13 +41,13 @@ const Courses = () => {
 
 		const q = query.toLowerCase();
 
-		const filtered = courses.filter(
-			(el) =>
-				el.title.toLowerCase().includes(q) || el.id.toLowerCase().includes(q)
+		setCourseList(
+			courses.filter(
+				(el) =>
+					el.title.toLowerCase().includes(q) || el.id.toLowerCase().includes(q)
+			)
 		);
-
-		setCourseList(filtered);
-	};
+	}, [courses, query]);
 
 	const change = (e) => {
 		const query = e.target.value;
@@ -61,7 +60,7 @@ const Courses = () => {
 	};
 
 	const showCreateNewCourse = () => {
-		setIsShowCreateCourse(true);
+		navigate(CREATE_COURSE_ROUTE);
 	};
 
 	return (
@@ -83,6 +82,7 @@ const Courses = () => {
 						authors={getAuthors(card.authors, authors)}
 						duration={pipeDuration(card.duration) + ' hours'}
 						creationDate={dateGeneratop(card.creationDate)}
+						id={card.id}
 					/>
 				))
 			) : (

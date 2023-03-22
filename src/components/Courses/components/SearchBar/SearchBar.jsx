@@ -3,6 +3,8 @@ import Button from '../../../../common/Button/Button';
 
 import classes from './SearchBar.module.css';
 
+import PropTypes from 'prop-types';
+
 import {
 	SEARCH_BUTTON_TEXT,
 	SEARCH_PLACEHOLDER_TEXT,
@@ -19,6 +21,12 @@ const SearchBar = ({ onChange, onClick, value }) => {
 			<Button onClick={onClick} buttonText={SEARCH_BUTTON_TEXT} />
 		</div>
 	);
+};
+
+SearchBar.propTypes = {
+	onChange: PropTypes.func,
+	onClick: PropTypes.func,
+	value: PropTypes.string,
 };
 
 export default SearchBar;

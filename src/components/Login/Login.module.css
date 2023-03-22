@@ -1,0 +1,28 @@
+.Login {
+    border:          1px solid cornflowerblue;
+    height:          600px;
+    display:         flex;
+    justify-content: center;
+    align-items:     center;
+    position: relative;
+}
+
+.Login input {
+    width: 250px;
+}
+
+.form {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            10px;
+}
+
+.link {
+    text-decoration: none;
+    color:           #6baefc;
+}
+.error {
+    color: red;
+    max-width:      250px;
+}

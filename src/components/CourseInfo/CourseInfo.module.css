@@ -1,0 +1,39 @@
+.CourseInfo {
+    position: relative;
+    border:   1px solid cornflowerblue;
+    padding:  30px;
+}
+
+.btnBack {
+    text-decoration: none;
+    color:           black;
+}
+
+.title {
+    text-align:     center;
+    padding-bottom: 50px;
+}
+
+.content {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     flex-start;
+}
+
+.description {
+    width: 55%;
+}
+
+.info {
+    width: 35%;
+    list-style: none;
+}
+
+.info > li {
+    padding-bottom: 10px;
+}
+
+.infoName {
+    font-weight: bold;
+    text-transform: capitalize;
+}

@@ -3,7 +3,7 @@
     border:          1px solid lime;
     display:         flex;
     justify-content: space-between;
-    align-items:     center;
+    align-items:     flex-start;
 }
 
 .info {
@@ -11,6 +11,7 @@
     display:        flex;
     flex-direction: column;
     width:          30%;
+    gap:            10px;
 }
 
 .info > li {

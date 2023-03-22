@@ -8,9 +8,11 @@ import TextArea from '../../common/TextArea/TextArea';
 import Authors from './components/Authors/Authors';
 
 import {
+	COURSES_ROUTE,
 	CREATE_COURSE_BUTTON_TEXT,
 	DESCRIPTION_ERROR_MESSAGE,
 	DESCRIPTION_LABEL_TEXT,
+	DESCRIPTION_MIN_LENGTH,
 	ENTER_DESCRIPTION_PLACEHOLDER_TEXT,
 	ENTER_TITLE_PLACEHOLDER_TEXT,
 	FILL_ALERT_MESSAGE,
@@ -20,6 +22,8 @@ import {
 import { AuthorContext } from '../../GlobalContext/GlobalContext';
 
 import { v4 as uuidv4 } from 'uuid';
+
+import { useNavigate } from 'react-router-dom';
 
 export const CourseContext = createContext(null);
 
@@ -31,13 +35,14 @@ const CreateCourse = () => {
 	const [isShowError, setIsShowError] = useState(false);
 	const [pristine, setPristine] = useState(true);
 
-	const { setIsShowCreateCourse, courses, setCourses } =
-		useContext(AuthorContext);
+	const { courses, setCourses } = useContext(AuthorContext);
+
+	const navigate = useNavigate();
 
 	const createCourse = () => {
 		if (
 			!title ||
-			description.length < 2 ||
+			description.length < DESCRIPTION_MIN_LENGTH ||
 			!duration ||
 			!courseAuthors.length
 		) {
@@ -56,7 +61,7 @@ const CreateCourse = () => {
 
 		setCourses([...courses, course]);
 
-		setIsShowCreateCourse(false);
+		navigate(COURSES_ROUTE);
 	};
 
 	const changeTitle = (e) => {
@@ -65,17 +70,16 @@ const CreateCourse = () => {
 
 	const changeDescription = (e) => {
 		const value = e.target.value.trim();
-		const minLength = 2;
 
 		if (pristine) {
 			setPristine(false);
 		}
 
-		if (value.length < minLength && !isShowError) {
+		if (value.length < DESCRIPTION_MIN_LENGTH && !isShowError) {
 			setIsShowError(true);
 		}
 
-		if (value.length >= minLength && isShowError) {
+		if (value.length >= DESCRIPTION_MIN_LENGTH && isShowError) {
 			setIsShowError(false);
 		}
 
