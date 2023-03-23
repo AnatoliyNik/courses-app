@@ -102,6 +102,7 @@ export const LOGIN_TITLE_TEXT = 'Login';
 export const EMPTY_AUTHORS_lIST_MESSAGE = 'Author list is empty';
 export const FILL_ALERT_MESSAGE = 'Please, fill in all fields';
 export const NO_COURSE_FOUND_MESSAGE = 'No course found';
+export const NOT_FOUND_MESSAGE = 'Not found';
 
 export const DURATION_ERROR_MESSAGE = 'Duration should be more than 0 minute';
 export const DESCRIPTION_ERROR_MESSAGE = `Description should be at least ${DESCRIPTION_MIN_LENGTH} characters`;
@@ -112,3 +113,5 @@ export const LOGIN_ROUTE = '/login';
 export const COURSES_ROUTE = '/courses';
 export const COURSE_INFO_ROUTE = '/courses/:courseId';
 export const CREATE_COURSE_ROUTE = '/courses/add';
+
+export const STATUS_CODE_OK = 200;

@@ -1,18 +1,33 @@
 import Button from '../../../../common/Button/Button';
+import EditIcon from '../../../../common/assets/EditIcon';
+import DeleteIcon from '../../../../common/assets/DeleteIcon';
 
 import classes from './CourseCard.module.css';
 
-import { SHOW_COURSE_BUTTON_TEXT } from '../../../../constants';
+import {
+	NOT_FOUND_MESSAGE,
+	SHOW_COURSE_BUTTON_TEXT,
+} from '../../../../constants';
 
 import PropTypes from 'prop-types';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+
+import { deleteCourse_actionCreator } from '../../../../store/courses/actionCreators';
+import Loader from '../../../Loader/Loader';
+
 const CourseCard = (props) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const showCourse = () => {
 		navigate(props.id);
+	};
+
+	const deleteCourse = (id) => {
+		dispatch(deleteCourse_actionCreator(id));
 	};
 
 	return (
@@ -24,7 +39,15 @@ const CourseCard = (props) => {
 			<ul className={classes.info}>
 				<li>
 					<span className={classes.infoName}>authors:</span>
-					<span className={classes.infoData}>{props.authors}</span>
+					{props.isLoading ? (
+						<Loader />
+					) : props.errorMessage ? (
+						<span className={classes.error}>{props.errorMessage}</span>
+					) : (
+						<span className={classes.infoData}>
+							{props.authors || NOT_FOUND_MESSAGE}
+						</span>
+					)}
 				</li>
 				<li>
 					<span className={classes.infoName}>duration:</span>
@@ -36,6 +59,15 @@ const CourseCard = (props) => {
 				</li>
 				<li className={classes.button}>
 					<Button onClick={showCourse} buttonText={SHOW_COURSE_BUTTON_TEXT} />
+					<span className={classes.iconButton}>
+						<Button buttonText={<EditIcon />} />
+					</span>
+					<span className={classes.iconButton}>
+						<Button
+							onClick={() => deleteCourse(props.id)}
+							buttonText={<DeleteIcon />}
+						/>
+					</span>
 				</li>
 			</ul>
 		</article>
@@ -49,6 +81,8 @@ CourseCard.propTypes = {
 	duration: PropTypes.string,
 	creationDate: PropTypes.string,
 	id: PropTypes.string,
+	isLoading: PropTypes.bool,
+	errorMessage: PropTypes.string,
 };
 
 export default CourseCard;
