@@ -5,23 +5,26 @@ import classes from './Header.module.css';
 
 import { LOGOUT_BUTTON_TEXT } from '../../constants';
 
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { AuthorContext } from '../../GlobalContext/GlobalContext';
+import { getUserSelector } from '../../store/selectors';
+
+import { logoutUserActionCreator } from '../../store/user/actionCreators';
 
 const Header = () => {
-	const { user, setUser } = useContext(AuthorContext);
+	const user = useSelector(getUserSelector);
+
+	const dispatch = useDispatch();
 
 	const logout = () => {
-		setUser({});
-		localStorage.removeItem('user');
+		dispatch(logoutUserActionCreator());
 	};
 
 	return (
 		<div className={classes.Header}>
 			<Logo />
 
-			{user.token && (
+			{user.isAuth && (
 				<ul className={classes.auth}>
 					<li>
 						<span className={classes.name}>{user.name}</span>

@@ -27,13 +27,19 @@ import { pipeDuration } from '../../../../helpers/pipeDuration';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { AuthorContext } from '../../../../GlobalContext/GlobalContext';
 import { CourseContext } from '../../CreateCourse';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getAuthorsSelector } from '../../../../store/selectors';
+import { addAuthorActionCreator } from '../../../../store/authors/actionCreators';
 
 const Authors = () => {
 	const { duration, setDuration, courseAuthors, setCourseAuthors } =
 		useContext(CourseContext);
-	const { authors, setAuthors } = useContext(AuthorContext);
+
+	const authors = useSelector(getAuthorsSelector);
+	const dispatch = useDispatch();
 
 	const [authorName, setAuthorName] = useState('');
 	const [isPristine, setIsPristine] = useState(true);
@@ -99,7 +105,7 @@ const Authors = () => {
 			id: uuidv4(),
 		};
 
-		setAuthors([...authors, newAuthor]);
+		dispatch(addAuthorActionCreator(newAuthor));
 
 		authorInput.current.value = '';
 		setIsPristine(true);

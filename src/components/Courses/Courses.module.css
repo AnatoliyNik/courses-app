@@ -4,10 +4,15 @@
     display:        flex;
     flex-direction: column;
     gap:            25px;
+    position:       relative;
 }
 
 .searchingPanel {
     display:         flex;
     justify-content: space-between;
     align-items:     center;
+}
+
+.error {
+    color: red;
 }

@@ -1,23 +1,33 @@
 import classes from './CourseInfo.module.css';
 
-import { useContext } from 'react';
-
 import { Link, useParams } from 'react-router-dom';
 
-import { AuthorContext } from '../../GlobalContext/GlobalContext';
-
-import { COURSEINFO_BUTTON_TEXT, COURSES_ROUTE } from '../../constants';
+import {
+	COURSEINFO_BUTTON_TEXT,
+	COURSES_ROUTE,
+	NOT_FOUND_MESSAGE,
+} from '../../constants';
 
 import { getArrayOfAuthors } from '../../helpers/getAuthors';
 import { dateGeneratop } from '../../helpers/dateGeneratop';
 import { pipeDuration } from '../../helpers/pipeDuration';
 
+import { useSelector } from 'react-redux';
+
+import { getAuthorsSelector, getCoursesSelector } from '../../store/selectors';
+
+import { useMemo } from 'react';
+
 const CourseInfo = () => {
 	const { courseId } = useParams();
 
-	const { courses, authors } = useContext(AuthorContext);
+	const courses = useSelector(getCoursesSelector);
+	const authors = useSelector(getAuthorsSelector);
 
-	const course = courses.find((course) => course.id === courseId);
+	const course = useMemo(
+		() => courses.find((course) => course.id === courseId) || {},
+		[courseId, courses]
+	);
 
 	return (
 		<div className={classes.CourseInfo}>
@@ -47,7 +57,9 @@ const CourseInfo = () => {
 						<div>
 							{course.authors &&
 								getArrayOfAuthors(course.authors, authors).map(
-									(author, index) => <p key={index}>{author}</p>
+									(author, index) => (
+										<p key={index}>{author || NOT_FOUND_MESSAGE}</p>
+									)
 								)}
 						</div>
 					</li>

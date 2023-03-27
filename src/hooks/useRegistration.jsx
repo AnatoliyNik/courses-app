@@ -1,42 +1,39 @@
 import { PASSWORD_MIN_LENGTH } from '../constants';
 
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import { useFetching } from './useFetching';
 
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
-import { AuthorContext } from '../GlobalContext/GlobalContext';
+import { login, register } from '../services';
 
-export const useRegistration = function (url, navigateTo) {
+import { loginUserActionCreator } from '../store/user/actionCreators';
+
+export const useRegistration = function (action, navigateTo) {
 	let [name, setName] = useState('');
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	const { setUser } = useContext(AuthorContext);
+
+	const dispatch = useDispatch();
 
 	const navigate = useNavigate();
 
 	const [fetching, isLoading, error, setError] = useFetching(
 		async (newUser) => {
-			const response = await axios.post(
-				`http://localhost:4000/${url}`,
-				newUser,
-				{
-					headers: { 'Content-Type': 'application/json' },
-				}
-			);
+			const response =
+				action === 'login' ? await login(newUser) : await register(newUser);
 
-			if (url === 'login') {
+			if (action === 'login') {
 				const userData = {
 					name: response.data.user.name,
+					email: response.data.user.email,
 					token: response.data.result,
 				};
 
-				localStorage.setItem('user', JSON.stringify(userData));
-
-				setUser(userData);
+				dispatch(loginUserActionCreator(userData));
 			}
 
 			navigate(navigateTo);
@@ -100,7 +97,9 @@ export const useRegistration = function (url, navigateTo) {
 	const submit = async (e) => {
 		e.preventDefault();
 
-		error.message = '';
+		const submitError = {};
+
+		submitError.message = '';
 
 		name = name.trim();
 		email = email.trim();
@@ -109,22 +108,23 @@ export const useRegistration = function (url, navigateTo) {
 		let inputError = false;
 
 		if (!name) {
-			error.nameError = 'required';
-			inputError = url === 'register';
+			submitError.nameError = 'required';
+			inputError = action === 'register';
 		}
 
 		if (!email) {
-			error.emailError = 'required';
+			submitError.emailError = 'required';
 			inputError = true;
 		}
 
 		if (password.length < PASSWORD_MIN_LENGTH) {
-			error.passwordError = `required at least ${PASSWORD_MIN_LENGTH} symbols`;
+			submitError.passwordError = `required at least ${PASSWORD_MIN_LENGTH} symbols`;
 			inputError = true;
 		}
 
 		setError({
 			...error,
+			...submitError,
 		});
 
 		if (inputError) {
@@ -132,7 +132,7 @@ export const useRegistration = function (url, navigateTo) {
 		}
 
 		const newUser =
-			url === 'register'
+			action === 'register'
 				? {
 						name,
 						email,
@@ -145,5 +145,6 @@ export const useRegistration = function (url, navigateTo) {
 
 		await fetching(newUser);
 	};
+
 	return [submit, changeEmail, changePassword, isLoading, error, changeName];
 };

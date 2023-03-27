@@ -17,6 +17,7 @@ const Button = (props) => {
 Button.propTypes = {
 	disabled: PropTypes.bool,
 	onClick: PropTypes.func,
+	buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 export default Button;

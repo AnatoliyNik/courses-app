@@ -17,6 +17,7 @@
 .info > li {
     overflow:      hidden;
     text-overflow: ellipsis;
+    position:      relative;
 }
 
 .infoName {
@@ -30,8 +31,15 @@
 }
 
 .button {
-    align-self: center;
-    padding:    20px 10px 10px;
+    align-self:  center;
+    padding:     20px 10px 10px;
+    display:     flex;
+    gap:         10px;
+    align-items: center;
+}
+
+.iconButton button {
+    padding: 0;
 }
 
 .description {
@@ -40,4 +48,8 @@
 
 .description h2 {
     padding-bottom: 30px;
+}
+
+.error {
+    color: red;
 }

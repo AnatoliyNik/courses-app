@@ -34,10 +34,15 @@ export const useFetching = function (callback) {
 			if (e.response) {
 				if (e.response.data.errors) {
 					handleErrors(e.response.data.errors);
-				} else {
+				} else if (e.response.data.result) {
 					setError({
 						...error,
 						message: e.response.data.result,
+					});
+				} else {
+					setError({
+						...error,
+						message: e.message,
 					});
 				}
 			} else {
