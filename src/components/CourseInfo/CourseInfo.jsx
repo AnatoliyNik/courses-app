@@ -14,18 +14,20 @@ import { pipeDuration } from '../../helpers/pipeDuration';
 
 import { useSelector } from 'react-redux';
 
-import {
-	getAuthors_selector,
-	getCourses_selector,
-} from '../../store/selectors';
+import { getAuthorsSelector, getCoursesSelector } from '../../store/selectors';
+
+import { useMemo } from 'react';
 
 const CourseInfo = () => {
 	const { courseId } = useParams();
 
-	const courses = useSelector(getCourses_selector);
-	const authors = useSelector(getAuthors_selector);
+	const courses = useSelector(getCoursesSelector);
+	const authors = useSelector(getAuthorsSelector);
 
-	const course = courses.find((course) => course.id === courseId) || {};
+	const course = useMemo(
+		() => courses.find((course) => course.id === courseId) || {},
+		[courseId, courses]
+	);
 
 	return (
 		<div className={classes.CourseInfo}>

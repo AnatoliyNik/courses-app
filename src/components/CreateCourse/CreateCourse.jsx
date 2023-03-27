@@ -24,7 +24,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { addCourse_actionCreator } from '../../store/courses/actionCreators';
+
+import { addCourseActionCreator } from '../../store/courses/actionCreators';
 
 export const CourseContext = createContext(null);
 
@@ -60,7 +61,7 @@ const CreateCourse = () => {
 			authors: courseAuthors.map((a) => a.id),
 		};
 
-		dispatch(addCourse_actionCreator(course));
+		dispatch(addCourseActionCreator(course));
 
 		navigate(COURSES_ROUTE);
 	};

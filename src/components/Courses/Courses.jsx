@@ -22,21 +22,19 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-	getAuthors_selector,
-	getCourses_selector,
-} from '../../store/selectors';
+import { getAuthorsSelector, getCoursesSelector } from '../../store/selectors';
 
 import { useFetching } from '../../hooks/useFetching';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
 
 import { getAllAuthors, getAllCourses } from '../../services';
-import { getCourses_actionCreator } from '../../store/courses/actionCreators';
-import { getAuthors_actionCreator } from '../../store/authors/actionCreators';
+
+import { getCoursesActionCreator } from '../../store/courses/actionCreators';
+import { getAuthorsActionCreator } from '../../store/authors/actionCreators';
 
 const Courses = () => {
-	const courses = useSelector(getCourses_selector);
-	const authors = useSelector(getAuthors_selector);
+	const courses = useSelector(getCoursesSelector);
+	const authors = useSelector(getAuthorsSelector);
 
 	const dispatch = useDispatch();
 
@@ -51,7 +49,7 @@ const Courses = () => {
 			const res = await getAllCourses();
 
 			if (res.status === STATUS_CODE_OK) {
-				dispatch(getCourses_actionCreator(res.data.result));
+				dispatch(getCoursesActionCreator(res.data.result));
 			}
 		}
 	);
@@ -60,7 +58,7 @@ const Courses = () => {
 		async () => {
 			const res = await getAllAuthors();
 			if (res.status === STATUS_CODE_OK) {
-				dispatch(getAuthors_actionCreator(res.data.result));
+				dispatch(getAuthorsActionCreator(res.data.result));
 			}
 		}
 	);

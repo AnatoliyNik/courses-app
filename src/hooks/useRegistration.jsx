@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import { login, register } from '../services';
 
-import { loginUser_actionCreator } from '../store/user/actionCreators';
+import { loginUserActionCreator } from '../store/user/actionCreators';
 
 export const useRegistration = function (action, navigateTo) {
 	let [name, setName] = useState('');
@@ -33,7 +33,7 @@ export const useRegistration = function (action, navigateTo) {
 					token: response.data.result,
 				};
 
-				dispatch(loginUser_actionCreator(userData));
+				dispatch(loginUserActionCreator(userData));
 			}
 
 			navigate(navigateTo);

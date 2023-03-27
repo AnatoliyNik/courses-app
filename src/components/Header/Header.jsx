@@ -7,17 +7,17 @@ import { LOGOUT_BUTTON_TEXT } from '../../constants';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUser_selector } from '../../store/selectors';
+import { getUserSelector } from '../../store/selectors';
 
-import { logoutUser_actionCreator } from '../../store/user/actionCreators';
+import { logoutUserActionCreator } from '../../store/user/actionCreators';
 
 const Header = () => {
-	const user = useSelector(getUser_selector);
+	const user = useSelector(getUserSelector);
 
 	const dispatch = useDispatch();
 
 	const logout = () => {
-		dispatch(logoutUser_actionCreator());
+		dispatch(logoutUserActionCreator());
 	};
 
 	return (

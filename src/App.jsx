@@ -8,14 +8,14 @@ import { privateRoutes, publicRoutes } from './routes/routes';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUser_selector } from './store/selectors';
+import { getUserSelector } from './store/selectors';
 
-import { loginUser_actionCreator } from './store/user/actionCreators';
+import { loginUserActionCreator } from './store/user/actionCreators';
 
 import { useEffect } from 'react';
 
 function App() {
-	const user = useSelector(getUser_selector);
+	const user = useSelector(getUserSelector);
 
 	const routes = user.token ? privateRoutes : publicRoutes;
 
@@ -25,7 +25,7 @@ function App() {
 		const user = JSON.parse(localStorage.getItem('user'));
 
 		if (user) {
-			dispatch(loginUser_actionCreator(user));
+			dispatch(loginUserActionCreator(user));
 		}
 	}, [dispatch]);
 

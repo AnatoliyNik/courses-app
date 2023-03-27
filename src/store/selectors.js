@@ -1,5 +1,5 @@
-export const getCourses_selector = (state) => state.courses;
+export const getCoursesSelector = (state) => state.courses;
 
-export const getAuthors_selector = (state) => state.authors;
+export const getAuthorsSelector = (state) => state.authors;
 
-export const getUser_selector = (state) => state.user;
+export const getUserSelector = (state) => state.user;

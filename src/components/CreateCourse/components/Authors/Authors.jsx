@@ -31,14 +31,14 @@ import { CourseContext } from '../../CreateCourse';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAuthors_selector } from '../../../../store/selectors';
-import { addAuthor_actionCreator } from '../../../../store/authors/actionCreators';
+import { getAuthorsSelector } from '../../../../store/selectors';
+import { addAuthorActionCreator } from '../../../../store/authors/actionCreators';
 
 const Authors = () => {
 	const { duration, setDuration, courseAuthors, setCourseAuthors } =
 		useContext(CourseContext);
 
-	const authors = useSelector(getAuthors_selector);
+	const authors = useSelector(getAuthorsSelector);
 	const dispatch = useDispatch();
 
 	const [authorName, setAuthorName] = useState('');
@@ -105,7 +105,7 @@ const Authors = () => {
 			id: uuidv4(),
 		};
 
-		dispatch(addAuthor_actionCreator(newAuthor));
+		dispatch(addAuthorActionCreator(newAuthor));
 
 		authorInput.current.value = '';
 		setIsPristine(true);

@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { deleteCourse_actionCreator } from '../../../../store/courses/actionCreators';
+import { deleteCourseActionCreator } from '../../../../store/courses/actionCreators';
 import Loader from '../../../Loader/Loader';
 
 const CourseCard = (props) => {
@@ -27,7 +27,7 @@ const CourseCard = (props) => {
 	};
 
 	const deleteCourse = (id) => {
-		dispatch(deleteCourse_actionCreator(id));
+		dispatch(deleteCourseActionCreator(id));
 	};
 
 	return (
