@@ -9,9 +9,9 @@ import classes from './Courses.module.css';
 
 import {
 	ADD_NEW_COURSE_BUTTON_TEXT,
+	ADMIN_ROLE,
 	CREATE_COURSE_ROUTE,
 	NO_COURSE_FOUND_MESSAGE,
-	STATUS_CODE_OK,
 } from '../../constants';
 
 import { getAuthors } from '../../helpers/getAuthors';
@@ -22,19 +22,22 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAuthorsSelector, getCoursesSelector } from '../../store/selectors';
+import {
+	getAuthorsSelector,
+	getCoursesSelector,
+	getUserSelector,
+} from '../../store/selectors';
 
 import { useFetching } from '../../hooks/useFetching';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
 
-import { getAllAuthors, getAllCourses } from '../../services';
-
-import { getCoursesActionCreator } from '../../store/courses/actionCreators';
-import { getAuthorsActionCreator } from '../../store/authors/actionCreators';
+import { getAuthorsAsyncActionCreator } from '../../store/authors/thunk';
+import { getCoursesAsyncActionCreator } from '../../store/courses/thunk';
 
 const Courses = () => {
 	const courses = useSelector(getCoursesSelector);
 	const authors = useSelector(getAuthorsSelector);
+	const user = useSelector(getUserSelector);
 
 	const dispatch = useDispatch();
 
@@ -44,23 +47,12 @@ const Courses = () => {
 
 	const navigate = useNavigate();
 
-	const [fetchingCourses, isLoadingCourses, errorCourses] = useFetching(
-		async () => {
-			const res = await getAllCourses();
-
-			if (res.status === STATUS_CODE_OK) {
-				dispatch(getCoursesActionCreator(res.data.result));
-			}
-		}
+	const [fetchingCourses, isLoadingCourses, errorCourses] = useFetching(() =>
+		dispatch(getCoursesAsyncActionCreator())
 	);
 
-	const [fetchingAuthors, isLoadingAuthors, errorAuthors] = useFetching(
-		async () => {
-			const res = await getAllAuthors();
-			if (res.status === STATUS_CODE_OK) {
-				dispatch(getAuthorsActionCreator(res.data.result));
-			}
-		}
+	const [fetchingAuthors, isLoadingAuthors, errorAuthors] = useFetching(() =>
+		dispatch(getAuthorsAsyncActionCreator())
 	);
 
 	useEffectOnce(() => {
@@ -113,10 +105,12 @@ const Courses = () => {
 		<div className={classes.Courses}>
 			<div className={classes.searchingPanel}>
 				<SearchBar value={query} onClick={search} onChange={change} />
-				<Button
-					onClick={showCreateNewCourse}
-					buttonText={ADD_NEW_COURSE_BUTTON_TEXT}
-				/>
+				{user.role === ADMIN_ROLE && (
+					<Button
+						onClick={showCreateNewCourse}
+						buttonText={ADD_NEW_COURSE_BUTTON_TEXT}
+					/>
+				)}
 			</div>
 
 			{isLoadingCourses ? (

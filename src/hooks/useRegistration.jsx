@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import { login, register } from '../services';
 
-import { loginUserActionCreator } from '../store/user/actionCreators';
+import { getUserDataAsyncActionCreator } from '../store/user/thunk';
 
 export const useRegistration = function (action, navigateTo) {
 	let [name, setName] = useState('');
@@ -27,13 +27,7 @@ export const useRegistration = function (action, navigateTo) {
 				action === 'login' ? await login(newUser) : await register(newUser);
 
 			if (action === 'login') {
-				const userData = {
-					name: response.data.user.name,
-					email: response.data.user.email,
-					token: response.data.result,
-				};
-
-				dispatch(loginUserActionCreator(userData));
+				dispatch(getUserDataAsyncActionCreator(response.data.result));
 			}
 
 			navigate(navigateTo);

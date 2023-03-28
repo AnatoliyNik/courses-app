@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getUserSelector } from './store/selectors';
 
-import { loginUserActionCreator } from './store/user/actionCreators';
-
 import { useEffect } from 'react';
+
+import { getUserDataAsyncActionCreator } from './store/user/thunk';
 
 function App() {
 	const user = useSelector(getUserSelector);
@@ -22,10 +22,10 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const user = JSON.parse(localStorage.getItem('user'));
+		const token = JSON.parse(localStorage.getItem('token'));
 
-		if (user) {
-			dispatch(loginUserActionCreator(user));
+		if (token) {
+			dispatch(getUserDataAsyncActionCreator(token));
 		}
 	}, [dispatch]);
 

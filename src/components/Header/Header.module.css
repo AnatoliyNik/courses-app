@@ -5,6 +5,7 @@
     display:         flex;
     justify-content: space-between;
     align-items:     center;
+    position:        relative;
 }
 
 .auth {
@@ -16,4 +17,8 @@
 .name {
     text-transform: capitalize;
     font-weight:    bold;
+}
+
+.error {
+    color: red;
 }

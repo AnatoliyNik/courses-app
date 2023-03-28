@@ -34,6 +34,7 @@ const TextArea = (props) => {
 		<label className={classes.label}>
 			<p>{props.labelText}</p>
 			<textarea
+				value={props.value}
 				ref={ref}
 				cols={140}
 				className={classes.TextArea}
@@ -52,6 +53,7 @@ TextArea.propTypes = {
 	placeholderText: PropTypes.string,
 	onChange: PropTypes.func,
 	onRefresh: PropTypes.func,
+	value: PropTypes.string,
 };
 
 export default TextArea;

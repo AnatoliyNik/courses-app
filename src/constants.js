@@ -64,6 +64,7 @@ export const ADD_NEW_COURSE_BUTTON_TEXT = 'Add new course';
 export const ADD_AUTHOR_BUTTON_TEXT = 'Add author';
 export const SHOW_COURSE_BUTTON_TEXT = 'Show course';
 export const CREATE_COURSE_BUTTON_TEXT = 'Create course';
+export const UPDATE_COURSE_BUTTON_TEXT = 'Update course';
 export const CREATE_AUTHOR_BUTTON_TEXT = 'Create author';
 export const DELETE_AUTHOR_BUTTON_TEXT = 'Delete author';
 export const REGISTRATION_BUTTON_TEXT = 'Registration';
@@ -103,6 +104,7 @@ export const EMPTY_AUTHORS_lIST_MESSAGE = 'Author list is empty';
 export const FILL_ALERT_MESSAGE = 'Please, fill in all fields';
 export const NO_COURSE_FOUND_MESSAGE = 'No course found';
 export const NOT_FOUND_MESSAGE = 'Not found';
+export const CONFIRM_DELETION_MESSAGE = 'Confirm deletion';
 
 export const DURATION_ERROR_MESSAGE = 'Duration should be more than 0 minute';
 export const DESCRIPTION_ERROR_MESSAGE = `Description should be at least ${DESCRIPTION_MIN_LENGTH} characters`;
@@ -113,5 +115,6 @@ export const LOGIN_ROUTE = '/login';
 export const COURSES_ROUTE = '/courses';
 export const COURSE_INFO_ROUTE = '/courses/:courseId';
 export const CREATE_COURSE_ROUTE = '/courses/add';
+export const UPDATE_COURSE_ROUTE = '/courses/update/:courseId';
 
-export const STATUS_CODE_OK = 200;
+export const ADMIN_ROLE = 'admin';

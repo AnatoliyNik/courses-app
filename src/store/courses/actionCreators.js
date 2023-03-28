@@ -1,4 +1,9 @@
-import { ADD_COURSE, DELETE_COURSE, GET_COURSES } from './actionTypes';
+import {
+	ADD_COURSE,
+	DELETE_COURSE,
+	GET_COURSES,
+	UPDATE_COURSE,
+} from './actionTypes';
 
 export function getCoursesActionCreator(payload) {
 	return {
@@ -17,6 +22,13 @@ export function deleteCourseActionCreator(id) {
 export function addCourseActionCreator(course) {
 	return {
 		type: ADD_COURSE,
+		payload: course,
+	};
+}
+
+export function updateCourseActionCreator(course) {
+	return {
+		type: UPDATE_COURSE,
 		payload: course,
 	};
 }
