@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState, useEffect } from 'react';
 
 import classes from './Authors.module.css';
 
@@ -25,19 +25,24 @@ import Button from '../../../../common/Button/Button';
 
 import { pipeDuration } from '../../../../helpers/pipeDuration';
 
-import { v4 as uuidv4 } from 'uuid';
-
-import { CourseContext } from '../../CreateCourse';
+import { CourseContext } from '../../CourseForm';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAuthorsSelector } from '../../../../store/selectors';
-import { addAuthorActionCreator } from '../../../../store/authors/actionCreators';
+import {
+	getAuthorsSelector,
+	getUserSelector,
+} from '../../../../store/selectors';
+
+import { addAuthorAsyncActionCreator } from '../../../../store/authors/thunk';
+import { useFetching } from '../../../../hooks/useFetching';
+import Loader from '../../../Loader/Loader';
 
 const Authors = () => {
 	const { duration, setDuration, courseAuthors, setCourseAuthors } =
 		useContext(CourseContext);
 
+	const user = useSelector(getUserSelector);
 	const authors = useSelector(getAuthorsSelector);
 	const dispatch = useDispatch();
 
@@ -46,7 +51,20 @@ const Authors = () => {
 	const [showAuthorError, setShowAuthorError] = useState(false);
 	const [showDurationError, setShowDurationError] = useState(false);
 
+	const [fetching, isLoading, error] = useFetching((author, token) =>
+		dispatch(addAuthorAsyncActionCreator(author, token))
+	);
+
 	const authorInput = useRef();
+
+	const [endOfFetching, setEndOfFetching] = useState(false);
+
+	useEffect(() => {
+		if (endOfFetching && !error.message) {
+			authorInput.current.value = '';
+			setIsPristine(true);
+		}
+	}, [endOfFetching, error]);
 
 	const changeDuration = (e) => {
 		const target = e.target;
@@ -95,20 +113,20 @@ const Authors = () => {
 		}
 	};
 
-	const createAuthor = () => {
+	const createAuthor = async () => {
 		if (authorName.length < AUTHOR_NAME_MIN_LENGTH) {
 			return;
 		}
 
 		const newAuthor = {
 			name: authorName,
-			id: uuidv4(),
 		};
 
-		dispatch(addAuthorActionCreator(newAuthor));
+		setEndOfFetching(false);
 
-		authorInput.current.value = '';
-		setIsPristine(true);
+		await fetching(newAuthor, user.token);
+
+		setEndOfFetching(true);
 	};
 
 	const addAuthor = (author) => {
@@ -121,6 +139,7 @@ const Authors = () => {
 
 	return (
 		<div className={classes.Authors}>
+			{isLoading && <Loader />}
 			<section>
 				<h5>{ADD_AUTHOR_TITLE_TEXT}</h5>
 				<Input
@@ -139,6 +158,8 @@ const Authors = () => {
 						buttonText={CREATE_AUTHOR_BUTTON_TEXT}
 					/>
 				</p>
+
+				{error.message && <p className={classes.error}>{error.message}</p>}
 			</section>
 
 			<section>
@@ -168,6 +189,7 @@ const Authors = () => {
 					labelText={DURATION_LABEL_TEXT}
 					placeholderText={ENTER_DURATION_IN_MINUTES_PLACEHOLDER_TEXT}
 					onChange={changeDuration}
+					value={String(duration)}
 				/>
 
 				{showDurationError && (

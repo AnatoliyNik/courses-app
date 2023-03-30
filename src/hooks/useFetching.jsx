@@ -27,6 +27,8 @@ export const useFetching = function (callback) {
 	};
 
 	const fetching = async (...args) => {
+		setError({});
+
 		try {
 			setIsLoading(true);
 			await callback(...args);

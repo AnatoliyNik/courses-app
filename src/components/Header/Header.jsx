@@ -1,5 +1,6 @@
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
+import Loader from '../Loader/Loader';
 
 import classes from './Header.module.css';
 
@@ -9,20 +10,32 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getUserSelector } from '../../store/selectors';
 
-import { logoutUserActionCreator } from '../../store/user/actionCreators';
+import { logoutUserAsyncActionCreator } from '../../store/user/thunk';
+
+import { useFetching } from '../../hooks/useFetching';
 
 const Header = () => {
 	const user = useSelector(getUserSelector);
 
 	const dispatch = useDispatch();
 
+	const [fetching, isLoading, error] = useFetching(() =>
+		dispatch(logoutUserAsyncActionCreator(user.token))
+	);
+
 	const logout = () => {
-		dispatch(logoutUserActionCreator());
+		fetching();
 	};
 
 	return (
 		<div className={classes.Header}>
 			<Logo />
+
+			{isLoading ? (
+				<Loader />
+			) : (
+				error.message && <p className={classes.error}>{error.message}</p>
+			)}
 
 			{user.isAuth && (
 				<ul className={classes.auth}>

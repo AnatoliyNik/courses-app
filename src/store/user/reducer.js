@@ -5,19 +5,20 @@ const initialState = {
 	name: '',
 	email: '',
 	token: '',
+	role: '',
 };
 
 export function userReducer(state = initialState, action) {
 	switch (action.type) {
 		case LOGIN_USER:
-			localStorage.setItem('user', JSON.stringify(action.payload));
+			localStorage.setItem('token', JSON.stringify(action.payload.token));
 			return {
 				...state,
 				...action.payload,
 				isAuth: true,
 			};
 		case LOGOUT:
-			localStorage.removeItem('user');
+			localStorage.removeItem('token');
 			return {
 				...initialState,
 			};
