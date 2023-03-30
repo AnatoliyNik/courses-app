@@ -116,5 +116,6 @@ export const COURSES_ROUTE = '/courses';
 export const COURSE_INFO_ROUTE = '/courses/:courseId';
 export const CREATE_COURSE_ROUTE = '/courses/add';
 export const UPDATE_COURSE_ROUTE = '/courses/update/:courseId';
+export const UPDATE_COURSE_WITHOUT_ID_ROUTE = '/courses/update/';
 
 export const ADMIN_ROLE = 'admin';

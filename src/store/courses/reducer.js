@@ -18,7 +18,7 @@ export function coursesReducer(state = initialState, action) {
 		case UPDATE_COURSE:
 			const newCourse = action.payload;
 			const index = state.findIndex((course) => course.id === newCourse.id);
-			const newState = state.slice();
+			const newState = [...state];
 
 			newState.splice(index, 1, newCourse);
 

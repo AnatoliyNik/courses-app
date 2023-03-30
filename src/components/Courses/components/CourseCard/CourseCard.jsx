@@ -10,7 +10,7 @@ import {
 	CONFIRM_DELETION_MESSAGE,
 	NOT_FOUND_MESSAGE,
 	SHOW_COURSE_BUTTON_TEXT,
-	UPDATE_COURSE_ROUTE,
+	UPDATE_COURSE_WITHOUT_ID_ROUTE,
 } from '../../../../constants';
 
 import PropTypes from 'prop-types';
@@ -48,7 +48,7 @@ const CourseCard = (props) => {
 	};
 
 	const editCourse = () => {
-		navigate(UPDATE_COURSE_ROUTE.split(':')[0] + props.id);
+		navigate(UPDATE_COURSE_WITHOUT_ID_ROUTE + props.id);
 	};
 
 	return (

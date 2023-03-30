@@ -43,8 +43,8 @@ export const CourseContext = createContext(null);
 const CourseForm = () => {
 	const [duration, setDuration] = useState(0);
 	const [courseAuthors, setCourseAuthors] = useState([]);
-	let [title, setTitle] = useState('');
-	let [description, setDescription] = useState('');
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
 	const [isShowError, setIsShowError] = useState(false);
 	const [pristine, setPristine] = useState(true);
 
@@ -89,12 +89,12 @@ const CourseForm = () => {
 	}, [authors, courseEdit]);
 
 	const createCourse = async () => {
-		title = title.trim();
-		description = description.trim();
+		const newTitle = title.trim();
+		const newDescription = description.trim();
 
 		if (
-			!title ||
-			description.length < DESCRIPTION_MIN_LENGTH ||
+			!newTitle ||
+			newDescription.length < DESCRIPTION_MIN_LENGTH ||
 			!duration ||
 			!courseAuthors.length
 		) {
@@ -104,8 +104,8 @@ const CourseForm = () => {
 
 		const newCourse = {
 			...courseEdit,
-			title,
-			description,
+			title: newTitle,
+			description: newDescription,
 			duration,
 			authors: courseAuthors.map((a) => a.id),
 		};
