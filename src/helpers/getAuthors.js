@@ -1,5 +1,5 @@
 export function getAuthors(arrayId, listOfAuthors) {
-	return getArrayOfAuthors(arrayId, listOfAuthors).join(', ');
+	return getArrayOfAuthors(arrayId, listOfAuthors)?.join(', ');
 }
 
 export function getArrayOfAuthors(arrayId, listOfAuthors) {
