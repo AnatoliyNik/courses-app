@@ -19,17 +19,27 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserSelector } from '../../../../store/selectors';
+import {
+	getAuthorsSelector,
+	getUserSelector,
+} from '../../../../store/selectors';
 
 import { deleteCourseAsyncActionCreator } from '../../../../store/courses/thunk';
 
 import { useFetching } from '../../../../hooks/useFetching';
+
+import { pipeDuration } from '../../../../helpers/pipeDuration';
+import { getAuthors } from '../../../../helpers/getAuthors';
+import { dateGeneratop } from '../../../../helpers/dateGeneratop';
+
+import { COURSE_CARD_TEST_ID } from '../../../../tests/constants';
 
 const CourseCard = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const user = useSelector(getUserSelector);
+	const authors = useSelector(getAuthorsSelector);
 
 	const showCourse = () => {
 		navigate(props.id);
@@ -52,7 +62,7 @@ const CourseCard = (props) => {
 	};
 
 	return (
-		<article className={classes.CourseCard}>
+		<article data-testid={COURSE_CARD_TEST_ID} className={classes.CourseCard}>
 			{isLoading && <Loader />}
 
 			<div className={classes.description}>
@@ -68,17 +78,21 @@ const CourseCard = (props) => {
 						<span className={classes.error}>{props.errorMessage}</span>
 					) : (
 						<span className={classes.infoData}>
-							{props.authors || NOT_FOUND_MESSAGE}
+							{getAuthors(props.authors, authors) || NOT_FOUND_MESSAGE}
 						</span>
 					)}
 				</li>
 				<li>
 					<span className={classes.infoName}>duration:</span>
-					<span className={classes.infoData}>{props.duration}</span>
+					<span className={classes.infoData}>
+						{pipeDuration(props.duration) + ' hours'}
+					</span>
 				</li>
 				<li>
 					<span className={classes.infoName}>created:</span>
-					<span className={classes.infoData}>{props.creationDate}</span>
+					<span className={classes.infoData}>
+						{dateGeneratop(props.creationDate)}
+					</span>
 				</li>
 				<li className={classes.button}>
 					<Button onClick={showCourse} buttonText={SHOW_COURSE_BUTTON_TEXT} />
@@ -102,8 +116,8 @@ const CourseCard = (props) => {
 CourseCard.propTypes = {
 	title: PropTypes.string,
 	description: PropTypes.string,
-	authors: PropTypes.string,
-	duration: PropTypes.string,
+	authors: PropTypes.arrayOf(PropTypes.string),
+	duration: PropTypes.number,
 	creationDate: PropTypes.string,
 	id: PropTypes.string,
 	isLoading: PropTypes.bool,

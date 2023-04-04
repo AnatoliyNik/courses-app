@@ -38,6 +38,13 @@ import { addAuthorAsyncActionCreator } from '../../../../store/authors/thunk';
 import { useFetching } from '../../../../hooks/useFetching';
 import Loader from '../../../Loader/Loader';
 
+import {
+	AUTHOR_TEST_ID,
+	AUTHORS_CONTAINER_TEST_ID,
+	COURSE_AUTHOR_TEST_ID,
+	COURSE_AUTHORS_CONTAINER_TEST_ID,
+} from '../../../../tests/constants';
+
 const Authors = () => {
 	const { duration, setDuration, courseAuthors, setCourseAuthors } =
 		useContext(CourseContext);
@@ -164,11 +171,18 @@ const Authors = () => {
 
 			<section>
 				<h5>{AUTHORS_TITLE_TEXT}</h5>
-				<ul className={classes.authorList}>
+				<ul
+					data-testid={AUTHORS_CONTAINER_TEST_ID}
+					className={classes.authorList}
+				>
 					{authors
 						.filter((a) => !courseAuthors.includes(a))
 						.map((author) => (
-							<li key={author.id} className={classes.authorsItem}>
+							<li
+								data-testid={AUTHOR_TEST_ID}
+								key={author.id}
+								className={classes.authorsItem}
+							>
 								<span>{author.name}</span>
 								<Button
 									onClick={() => addAuthor(author)}
@@ -204,10 +218,17 @@ const Authors = () => {
 
 			<section>
 				<h5>{COURSE_AUTHORS_TITLE_TEXT}</h5>
-				<ul className={classes.authorList}>
+				<ul
+					data-testid={COURSE_AUTHORS_CONTAINER_TEST_ID}
+					className={classes.authorList}
+				>
 					{courseAuthors.length ? (
 						courseAuthors.map((author) => (
-							<li key={author.id} className={classes.authorsItem}>
+							<li
+								data-testid={COURSE_AUTHOR_TEST_ID}
+								key={author.id}
+								className={classes.authorsItem}
+							>
 								<span>{author.name}</span>
 								<Button
 									onClick={() => deleteAuthor(author)}

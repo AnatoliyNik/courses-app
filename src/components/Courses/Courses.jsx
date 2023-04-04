@@ -14,10 +14,6 @@ import {
 	NO_COURSE_FOUND_MESSAGE,
 } from '../../constants';
 
-import { getAuthors } from '../../helpers/getAuthors';
-import { pipeDuration } from '../../helpers/pipeDuration';
-import { dateGeneratop } from '../../helpers/dateGeneratop';
-
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -123,9 +119,9 @@ const Courses = () => {
 						key={card.id}
 						title={card.title}
 						description={card.description}
-						authors={getAuthors(card.authors, authors)}
-						duration={pipeDuration(card.duration) + ' hours'}
-						creationDate={dateGeneratop(card.creationDate)}
+						authors={card.authors}
+						duration={card.duration}
+						creationDate={card.creationDate}
 						id={card.id}
 						isLoading={isLoadingAuthors}
 						errorMessage={errorAuthors.message}

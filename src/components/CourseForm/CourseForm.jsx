@@ -38,6 +38,8 @@ import {
 
 import { useFetching } from '../../hooks/useFetching';
 
+import { COURSE_FORM_TEST_ID } from '../../tests/constants';
+
 export const CourseContext = createContext(null);
 
 const CourseForm = () => {
@@ -152,7 +154,7 @@ const CourseForm = () => {
 		<CourseContext.Provider
 			value={{ duration, setDuration, courseAuthors, setCourseAuthors }}
 		>
-			<div className={classes.CourseForm}>
+			<div data-testid={COURSE_FORM_TEST_ID} className={classes.CourseForm}>
 				{isLoading && <Loader />}
 
 				<div className={classes.title}>
